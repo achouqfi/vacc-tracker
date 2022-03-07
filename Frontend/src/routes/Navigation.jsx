@@ -53,7 +53,6 @@ const Navigation = () => {
                 <div>
                     <button
                         type="button"
-                      
                         className="text-white bg-gray-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-10  w-full py-2.5 text-center inline-flex items-center dark:bg-gray-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
                     >
                         Log out

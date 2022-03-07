@@ -9,11 +9,11 @@ import Navigation from './Navigation'
 // dark:bg-slate-900 bg-white min-h-screen dark:text-white'
 const Routers = () => {
   const role = JSON.stringify(localStorage.getItem("user"));
-  console.log(role);
+
   return (
     <BrowserRouter>
-      {role != null ? <Navigation /> : null}
-        <div className={role != null ? 'pl-[18em]  pr-[1.5em]' : ''} >
+      {role == "admin" || role == "manager" ? <Navigation /> : null}
+        <div className={role === "admin" || role === "manager"  ? 'pl-[18em]  pr-[1.5em]' : ''} >
         <Routes>
           <Route path="/adminLogin" element={<AdminLogin />} />
           <Route path="/managerLogin" element={<ManagerLogin />} />

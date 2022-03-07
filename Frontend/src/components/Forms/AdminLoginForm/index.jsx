@@ -19,7 +19,7 @@ const AdminLoginForm = () => {
     (values) => axios.post("http://localhost:4000/api/admin/login", values),
     {
       onSuccess: () => {
-        sessionStorage.setItem("user", "admin");
+        localStorage.setItem("user", "admin");
         navigate("/adminDash");
       },
       onError: () => {
