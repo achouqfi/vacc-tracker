@@ -5,10 +5,15 @@ import AdminLogin from "../Pages/AdminLogin";
 import AdminDash from "../Pages/AdminDash";
 import ManagerLogin from "../Pages/ManagerLogin";
 import UrbanCenter from "../Pages/UrbanCenter/UrbanCenter";
+import Navigation from './Navigation'
+// dark:bg-slate-900 bg-white min-h-screen dark:text-white'
 const Routers = () => {
+  const role = JSON.stringify(localStorage.getItem("user"));
+  console.log(role);
   return (
     <BrowserRouter>
-      <div className="">
+      {role != null ? <Navigation /> : null}
+        <div className={role != null ? 'pl-[18em]  pr-[1.5em]' : ''} >
         <Routes>
           <Route path="/adminLogin" element={<AdminLogin />} />
           <Route path="/managerLogin" element={<ManagerLogin />} />
@@ -16,17 +21,17 @@ const Routers = () => {
           <Route
             path="/AdminDash"
             element={
-              <AdminDash />
-              // <PrivateRoute user="admin">
-              // </PrivateRoute>
+              <PrivateRoute user="admin">
+                <AdminDash />
+              </PrivateRoute>
             }
           />
           <Route
             path="/urbanCenter"
             element={
-              <UrbanCenter />
-              // <PrivateRoute user="manager">
-              // </PrivateRoute>
+              <PrivateRoute user="manager">
+                <UrbanCenter />
+              </PrivateRoute>
             }
           />
         </Routes>

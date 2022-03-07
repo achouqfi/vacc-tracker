@@ -5,7 +5,7 @@ import { useMutation } from "react-query";
 import { useState } from "react";
 import axios from "axios";
 import * as Yup from "yup";
-import { Login } from "../../../Hooks/useFetch";
+
 const ManagerSchema = Yup.object().shape({
   email: Yup.string().email("Invalid email address").required("Required"),
   password: Yup.string().min(2, "Too Short!").required("Required"),
@@ -14,6 +14,7 @@ const ManagerSchema = Yup.object().shape({
 const ManagerLoginForm = () => {
   let navigate = useNavigate();
   const [error, setError] = useState("");
+
   const loginMutation = useMutation(
     (values) => axios.post("http://localhost:4000/api/managers/login", values),
     {
