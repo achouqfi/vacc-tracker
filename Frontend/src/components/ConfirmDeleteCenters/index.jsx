@@ -6,6 +6,7 @@ const ConfirmDeleteCenter = ({ isOpen, setIsOpen, centerId }) => {
     (id) => axios.delete(`http://localhost:4000/api/urbanCenter/${id}`),
     {
       onSuccess: () => queryClient.invalidateQueries("urbanCenter"),
+
     }
   );
   const handleDelete = (id) => {

@@ -1,15 +1,18 @@
 import { useMutation, useQueryClient } from "react-query";
 import axios from "axios";
-const ConfirmDelete = ({ isOpen, setIsOpen, managerId }) => {
+
+const ConfirmDelete = ({ isOpen, setIsOpen, rowId, role }) => {
   const queryClient = useQueryClient();
-  const deleteCenter = useMutation(
-    (id) => axios.delete(`http://localhost:4000/api/managers/${id}`),
+
+  const deleteRow = useMutation(
+    (id) => axios.delete(`http://localhost:4000/api/${role}/${id}`),
     {
-      onSuccess: () => queryClient.invalidateQueries("managers"),
+      onSuccess: () => queryClient.invalidateQueries(role),
     }
   );
+  
   const handleDelete = (id) => {
-    deleteCenter.mutate(id, {
+    deleteRow.mutate(id, {
       onSuccess: () => {
         setIsOpen(!isOpen);
       },
@@ -38,7 +41,7 @@ const ConfirmDelete = ({ isOpen, setIsOpen, managerId }) => {
       </h3>
       <button
         onClick={() => {
-          handleDelete(managerId);
+          handleDelete(rowId, role);
         }}
         type="button"
         className="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2"

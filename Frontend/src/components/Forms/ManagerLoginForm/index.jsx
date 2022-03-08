@@ -19,8 +19,8 @@ const ManagerLoginForm = () => {
     (values) => axios.post("http://localhost:4000/api/managers/login", values),
     {
       onSuccess: () => {
-        sessionStorage.setItem("user", "manager");
-        navigate("/urbanCenter");
+        localStorage.setItem("user", "manager");
+        navigate("/VaccinationListe");
       },
       onError: () => {
         setError("wrong creds");

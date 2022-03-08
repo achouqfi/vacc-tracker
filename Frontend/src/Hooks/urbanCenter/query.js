@@ -15,5 +15,4 @@ export function useDeletePosts(id) {
             },
         }
     );
-    // console.log(id);
 }

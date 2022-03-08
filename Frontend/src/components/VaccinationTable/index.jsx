@@ -3,12 +3,13 @@ import { useQuery } from "react-query";
 import ConfirmDelete from "../ConfirmDelete";
 import Modal from "../Modals";
 import axios from "axios";
-const ManagerTable = () => {
-  const [open, setIsOpen] = useState(false);
-  const [managerId, setManagerId] = useState("");
 
-  const query = useQuery("managers", async () => {
-    const { data } = await axios.get("http://localhost:4000/api/managers");
+const VaccinationTable = () => {
+  const [open, setIsOpen] = useState(false);
+  const [vaccinationId, setVaccinationId] = useState("");
+
+  const query = useQuery("appointments", async () => {
+    const { data } = await axios.get("http://localhost:4000/api/appointments");
     return data;
   });
 
@@ -41,7 +42,25 @@ const ManagerTable = () => {
                   scope="col"
                   className="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase dark:text-gray-400"
                 >
-                  region
+                  Cin
+                </th>
+                <th
+                  scope="col"
+                  className="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase dark:text-gray-400"
+                >
+                  VaccNumber
+                </th>
+                <th
+                  scope="col"
+                  className="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase dark:text-gray-400"
+                >
+                  phone
+                </th>
+                <th
+                  scope="col"
+                  className="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase dark:text-gray-400"
+                >
+                  date
                 </th>
                 <th scope="col" className="relative py-3 px-6">
                   <span className="sr-only">Edit</span>
@@ -50,22 +69,31 @@ const ManagerTable = () => {
             </thead>
             <tbody>
               {query &&
-                query.data?.map((manager, index) => (
+                query.data?.map((appointement, index) => (
                   <tr
                     key={index}
                     className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
                   >
                     <td className="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                      {manager.firstName}
+                      {appointement.firstName}
                     </td>
                     <td className="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                      {manager.lastName}
+                      {appointement.lastName}
                     </td>
                     <td className="py-4 px-6 text-sm text-gray-500 whitespace-nowrap dark:text-gray-400">
-                      {manager.email}
+                      {appointement.email}
                     </td>
                     <td className="py-4 px-6 text-sm text-gray-500 whitespace-nowrap dark:text-gray-400">
-                      {manager.region}
+                      {appointement.Cin}
+                    </td>
+                    <td className="py-4 px-6 text-sm text-gray-500 whitespace-nowrap dark:text-gray-400">
+                      {appointement.VaccNumber}
+                    </td>
+                    <td className="py-4 px-6 text-sm text-gray-500 whitespace-nowrap dark:text-gray-400">
+                      {appointement.phone}
+                    </td>
+                    <td className="py-4 px-6 text-sm text-gray-500 whitespace-nowrap dark:text-gray-400">
+                      {appointement.date}
                     </td>
                     <td className="py-4 px-6 text-sm font-medium text-right whitespace-nowrap">
                       <div className="space-x-3">
@@ -73,7 +101,7 @@ const ManagerTable = () => {
                           type="button"
                           onClick={() => {
                             setIsOpen(!open);
-                            setManagerId(manager._id);
+                            setVaccinationId(appointement._id);
                           }}
                           className=" text-red-700 hover:text-white border border-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-800"
                         >
@@ -91,10 +119,10 @@ const ManagerTable = () => {
           setIsOpen={setIsOpen}
           component={
             <ConfirmDelete
-            isOpen={open}
-            setIsOpen={setIsOpen}
-            rowId={managerId}
-            role={"managers"}
+              isOpen={open}
+              setIsOpen={setIsOpen}
+              rowId={vaccinationId}
+              role={"appointments"}
             />
           }
         />
@@ -102,4 +130,4 @@ const ManagerTable = () => {
     </div>
   );
 };
-export default ManagerTable;
+export default VaccinationTable;

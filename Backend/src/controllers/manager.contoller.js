@@ -2,6 +2,7 @@ const manager = require("../models/manager.model");
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcryptjs')
 const { comparePassword } = require('../helpers/JwtValidation')
+const { RegionalManager } = require('../utils/mail')
 
 const loginManager = async (req, res) => {
     const { email, password } = req.body
@@ -40,7 +41,6 @@ const store = async (req, res) => {
 
         let password = Math.random().toString(20).substring(2, 10)
         const hashedPassword = await bcrypt.hash(password, 10)
-
         const newManager = await manager.create({
             email: email,
             firstName: firstName,
@@ -48,7 +48,8 @@ const store = async (req, res) => {
             password: hashedPassword,
             region
         })
-
+        
+        RegionalManager(email , lastName , firstName , password)
         res.status(200).json({ newManager })
 
     } catch (err) {

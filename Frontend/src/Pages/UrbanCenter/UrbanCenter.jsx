@@ -32,10 +32,6 @@ const UrbanCenter = () => {
           setIsOpen={setIsOpen}
           component={<AddUrbanCenterForm setIsOpen={setIsOpen} isOpen={open} /> }
           />
-          <Stats 
-              UrbanCenterData = {query}
-              StatistiqueTitle = {'Manage Urban'}
-          />
       </div>
     )
 }

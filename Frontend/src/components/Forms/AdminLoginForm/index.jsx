@@ -5,25 +5,28 @@ import {  useMutation } from "react-query";
 import axios from "axios";
 import * as Yup from "yup";
 import Error from "../../Shared/Error";
+
 const AdminSchema = Yup.object().shape({
   email: Yup.string().email("Invalid email address").required("Required"),
   password: Yup.string().min(2, "Too Short!").required("Required"),
 });
 
 const AdminLoginForm = () => {
-  const [isShowing, setIsShowing] = useState(false);
   const navigate = useNavigate();
   const [error, setError] = useState("");
 
   const loginMutation = useMutation(
     (values) => axios.post("http://localhost:4000/api/admin/login", values),
     {
+
+
       onSuccess: () => {
         localStorage.setItem("user", "admin");
         navigate("/adminDash");
       },
       onError: () => {
         setError("wrong creds");
+        console.log(value);
       },
     }
   );
