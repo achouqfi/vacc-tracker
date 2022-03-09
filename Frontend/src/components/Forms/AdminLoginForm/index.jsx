@@ -18,8 +18,6 @@ const AdminLoginForm = () => {
   const loginMutation = useMutation(
     (values) => axios.post("http://localhost:4000/api/admin/login", values),
     {
-
-
       onSuccess: () => {
         localStorage.setItem("user", "admin");
         navigate("/adminDash");

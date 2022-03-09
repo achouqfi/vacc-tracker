@@ -9,7 +9,7 @@ import UrbanCenter from "../Pages/UrbanCenter/UrbanCenter";
 import Vaccination from '../Pages/AdminDash/vaccination'
 import Navigation from './Navigation'
 const Routers = () => {
-  const role = JSON.parse(JSON.stringify(localStorage.getItem("user")));
+  const role = localStorage.getItem("user");
 
   return (
     <BrowserRouter>

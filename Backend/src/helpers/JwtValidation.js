@@ -2,7 +2,7 @@ const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 
 const comparePassword = async (password, user, res) => {
-    console.log(password, user);
+    // console.log(password, user.password);
     bcrypt.compare(password,user.password)
         .then((isCorrect) => {
             if (isCorrect) {
@@ -10,14 +10,13 @@ const comparePassword = async (password, user, res) => {
                     id: user._id,
                     email: user.email,
                 }
-                console.log(payload);
+                // console.log(payload);
                 jwt.sign(payload, `${process.env.JWT_SECRET_KEY}`, { expiresIn: '1h' }, (err, token) => {
                     if (err) return res.json({ message: err.message })
                     return res.status(200).json({
                         token: token,
                         email: user.email,
                     })
-
                 })
             } else {
                 res.status(404).json({ message: "Invalid Username or password" })
