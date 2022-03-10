@@ -1,7 +1,7 @@
 const nodemailer = require('nodemailer')
 const hbs = require('nodemailer-express-handlebars')
 
-const sendMail = async (email, firstName , lastName, date ) => {
+const sendMail = async (email, firstName , lastName,  vacc1, vacc2, vacc3 ) => {
   try {
     let mailTransporter = nodemailer.createTransport({
       service: 'gmail',
@@ -29,7 +29,9 @@ const sendMail = async (email, firstName , lastName, date ) => {
       context: {
         firstName: firstName,
         lastName:lastName,
-        date: date,
+        vacc1: vacc1,
+        vacc2: vacc2,
+        vacc3: vacc3,
       },
     }
 

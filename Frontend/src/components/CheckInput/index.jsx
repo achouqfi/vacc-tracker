@@ -22,23 +22,7 @@ const CheckInput = ({ values }) => {
             <option value="yes">Yes</option>
           </Field>
         </div>
-      ): null}
-
-      {/* side effect first vaccine desc  */}
-      
-
-      {/* side effect second vaccine desc */}
-      {values.chronicDisease === "sideEffect2" &&
-        values.VaccNumber === "thirdVacc" && (
-          <div className="mb-3">
-            <Field
-              name="SideEffectDesc"
-              as="textarea"
-              placeholder="describe your side Effect from second vaccine "
-              className="mt-1 pl-3  focus:ring-green-500 py-3 focus:border-green-500 block w-full shadow-sm sm:text-sm rounded-md border border-green-300 outline-none  "
-            />
-          </div>
-        )}
+      ): null}  
 
       {/* treatment */}
       {values.chronicDisease === "yes" && values.VaccNumber === "firstVacc" && (

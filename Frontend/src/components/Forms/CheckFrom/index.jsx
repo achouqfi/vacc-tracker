@@ -2,10 +2,12 @@ import { Form, Formik, Field } from "formik";
 import CheckInput from "../../CheckInput";
 import { useContext } from "react";
 import { UserContext } from "../../Contexts/UserContext";
+import { sendData } from "../../../Hooks/useFetch";
 
 const CheckForm = () => {
  
   const { setStep , step , setCheckResult } = useContext(UserContext)
+
 
   return (
     
@@ -16,12 +18,17 @@ const CheckForm = () => {
           emailAdresse:"",
           chronicDisease: "",
           SideEffectDesc: "",
+          phone: "",
+          Cin: "",
+          email: "",
         }}
         onSubmit={(values) => {
           setCheckResult(values)
           {values.VaccNumber === "firstVacc" ?(
               setStep(step + 1)
-          ):null}
+          ):
+            sendData("sideEffect" ,values);
+          }
         }}
       >
         {({
@@ -87,10 +94,25 @@ const CheckForm = () => {
                 {values.chronicDisease === "sideEffect2" &&
                   <div className="mb-3">
                     <Field
+                      name="Cin"
+                      placeholder="CIN "
+                      className="mt-1 pl-3 mb-3 focus:ring-green-500 py-3 focus:border-green-500 block w-full shadow-sm sm:text-sm rounded-md border border-green-300 outline-none  "
+                    />
+                    <Field
+                      name="phone"
+                      placeholder="phone "
+                      className="mt-1 pl-3 mb-3 focus:ring-green-500 py-3 focus:border-green-500 block w-full shadow-sm sm:text-sm rounded-md border border-green-300 outline-none  "
+                    />
+                    <Field
+                      name="email"
+                      placeholder="email "
+                      className="mt-1 pl-3 mb-3 focus:ring-green-500 py-3 focus:border-green-500 block w-full shadow-sm sm:text-sm rounded-md border border-green-300 outline-none  "
+                    />
+                    <Field
                       name="SideEffectDesc"
                       as="textarea"
                       placeholder="describe your side Effect from previous vaccine "
-                      className="mt-1 pl-3  focus:ring-green-500 py-3 focus:border-green-500 block w-full shadow-sm sm:text-sm rounded-md border border-green-300 outline-none  "
+                      className="mt-1 pl-3   focus:ring-green-500 py-3 focus:border-green-500 block w-full shadow-sm sm:text-sm rounded-md border border-green-300 outline-none  "
                     />
                   </div>
                 }

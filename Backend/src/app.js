@@ -3,7 +3,6 @@ const mongoose = require('mongoose')
 const cookieParser = require('cookie-parser')
 const cors = require('cors')
 const app = express()
-
 require('dotenv').config();
  
 app.use(cors())
@@ -20,11 +19,13 @@ const appointmentRoute = require('./routes/appointment.routes')
 const managerRoute = require('./routes/manager.routes')
 const adminRoute = require('./routes/admin.routes')
 const urbanCenter = require('./routes/urbanCenter.routes')
+const sideEffect = require('./routes/sideEffect.routes')
 
 app.use('/api/appointments', appointmentRoute)
 app.use('/api/managers', managerRoute)
 app.use('/api/urbanCenter', urbanCenter) 
 app.use('/api/admin', adminRoute)
+app.use('/api/sideEffect', sideEffect)
 
 app.listen(process.env.PORT, () => {
     console.log(`up and running at http://localhost:${process.env.PORT}`);

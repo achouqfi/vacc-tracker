@@ -1,6 +1,6 @@
 const appointment = require("../models/appointment.model");
 const bcrypt = require("bcryptjs");
-const sendMail = require("../utils/mail")
+const {sendMail} = require("../utils/mail")
 var dayjs = require('dayjs')
 
 const index = async (req, res) => {
@@ -24,17 +24,17 @@ const show = async (req, res) => {
 };
 
 const store = async (req, res, next) => {
-  const { email, firstName, lastName, age, address, Cin, VaccNumber, phone, chronicDisease, SideEffectDesc } = req.body;
+  const { email, firstName, lastName, age, city, Cin, region, phone, chronicDisease } = req.body;
   try {
-    // if (!email || !firstName || !lastName || !age || !adress || !CIN || !vaccinNumber || !phoneNumber || !manager )
-    //   return res.status(400).json({ message: "Please fill all the fields" });
-
     const existingEmail = await appointment.findOne({ email });
 
     if (existingEmail)
+
       return res.status(400).json({ message: "email already exists" });
 
-    const date = dayjs(new Date()).add(1, 'month').format('DD/MM/YYYY')
+      const vacc3 = dayjs(new Date()).add(2, 'month').format('DD/MM/YYYY')
+      const vacc2 = dayjs(new Date()).add(1, 'month').format('DD/MM/YYYY')
+      const vacc1 = dayjs(new Date()).add(0, 'month').format('DD/MM/YYYY')
 
     const newAppointment = await appointment.create({
       email,
@@ -42,15 +42,16 @@ const store = async (req, res, next) => {
       lastName,
       age,
       Cin,
-      address,
-      VaccNumber,
+      city,
       chronicDisease,
       phone,
-      SideEffectDesc,
-      date: date
+      region,
+      vacc1: vacc1,
+      vacc2: vacc2,
+      vacc3: vacc3
     });
 
-    sendMail(email, firstName, lastName, date)
+    sendMail(email, firstName, lastName, vacc1, vacc2, vacc3)
     res.status(200).json({ newAppointment });
   } catch (err) {
     res.status(400).json({ error: err.message });

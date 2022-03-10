@@ -1,12 +1,47 @@
-import { Form, Formik, Field } from "formik";
 import { useState, useContext } from "react";
 import { UserContext } from "../../Contexts/UserContext";
-import { sendData } from "../../../Hooks/useFetch";
+import { sendData, useFetch } from "../../../Hooks/useFetch";
 import MailConfirm from "../../MailConfirm";
+import { Form, Formik, Field, useFormikContext } from "formik";
+
+
+const City = () => {
+
+  const { values } = useFormikContext();
+  const { data } = useFetch(
+    `https://calm-fjord-14795.herokuapp.com/api/villes/${values.region}`
+  );
+  
+  return (
+    <Field
+      className="mt-1 focus:ring-green-500 py-3 focus:border-green-500 block w-full shadow-sm sm:text-sm rounded-md border border-green-300 outline-none "
+      as="select"
+      name="city"
+    >
+      <option value="" disabled>
+        Select a city
+      </option>
+      {data &&
+        data?.map((el, index) => (
+          <option key={index} value={el.ville}>
+            {el.ville}
+          </option>
+        ))}
+    </Field>
+  );
+};
 
 const UserForm = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { setStep , step , checkResult } = useContext(UserContext)
+
+  const { data, loading } = useFetch(
+    "https://calm-fjord-14795.herokuapp.com/api/regions"
+  );
+  const { data: center, loading: isLoading } = useFetch(
+    "http://localhost:4000/api/urbanCenter"
+  );
+
   
   return (
    <>
@@ -14,18 +49,18 @@ const UserForm = () => {
         initialValues={{
           lastName: "",
           firstName: "",
-          address: "",
+          region: "",
           phone: "",
           Cin: "",
           email: "",
+          city: "",
           age: checkResult.age,
-          VaccNumber: checkResult.VaccNumber,
           chronicDisease: checkResult.chronicDisease,
-          SideEffectDesc: checkResult.SideEffectDesc,
         }}
         onSubmit={(values) => {
           sendData("appointments" ,values);
           setIsOpen(!isOpen)
+          console.log(values);
         }}
       >
         {({
@@ -98,19 +133,29 @@ const UserForm = () => {
                     />
                   </div>
                   <div className="">
-                    <label
-                      htmlFor="street-address"
-                      className="block text-sm font-medium text-gray-700"
-                    >
-                      Street address
-                    </label>
-                    <Field
-                      type="text"
-                      name="address"
-                      id="address"
-                      className="mt-1 focus:ring-green-500 py-3 focus:border-green-500 block w-full shadow-sm sm:text-sm rounded-md border border-green-300 outline-none  "
-                    />
+                  <Field
+                    className="mt-1 focus:ring-green-500 py-3 focus:border-green-500 block w-full shadow-sm sm:text-sm rounded-md border border-green-300 outline-none  "
+                    as="select"
+                    name="region"
+                  >
+                    <option value="" disabled>
+                      Select region
+                    </option>
+                    {data &&
+                      data.map((el, index) => (
+                        <option key={index} value={el.id}>
+                          {el.id} - {el.region}
+                        </option>
+                      ))}
+                  </Field>
                   </div>
+                  {
+                    values.region &&(
+                      <div className="mt-4">
+                        <City />
+                      </div>
+                    )
+                  }
                   <div className="">
                     <label
                       htmlFor="postal-code"
@@ -124,21 +169,7 @@ const UserForm = () => {
                       id="Cin"
                       className="mt-1 focus:ring-green-500 py-3 focus:border-green-500 block w-full shadow-sm sm:text-sm rounded-md border border-green-300 outline-none  "
                     />
-                  </div>
-                  <div className="">
-                    <label
-                      htmlFor="city"
-                      className="block text-sm font-medium text-gray-700"
-                    >
-                      City
-                    </label>
-                    <Field
-                      type="text"
-                      name="city"
-                      id="city"
-                      className="mt-1 focus:ring-green-500 py-3 focus:border-green-500 block w-full shadow-sm sm:text-sm rounded-md border border-green-300 outline-none  "
-                    />
-                  </div>
+                  </div>                  
                 </div>
               </div>
               <div className="px-4 py-3 bg-gray-50 text-right sm:px-6 space-x-3 mb-2 rounded-tr-md rounded-br-md shadow-md">

@@ -117,7 +117,8 @@ const AddUrbanCenterForm = ({ setIsOpen, isOpen }) => {
                   <option key={index} value={el.id}>
                     {el.id} - {el.region}
                   </option>
-                ))}
+                ))
+              }
             </Field>
             {errors.email && touched.email ? (
               <div className="text-red-500 font-semibold dark:text-red-400">

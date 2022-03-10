@@ -8,19 +8,47 @@ import Manager from '../Pages/AdminDash/manager'
 import UrbanCenter from "../Pages/UrbanCenter/UrbanCenter";
 import Vaccination from '../Pages/AdminDash/vaccination'
 import Navigation from './Navigation'
-const Routers = () => {
-  const role = localStorage.getItem("user");
+import { useCookies } from 'react-cookie';
 
+const Routers = () => {
+  const [cookies, setCookie, removeCookie] = useCookies();
+  const role = cookies.role
+  
   return (
+    // <BrowserRouter>
+    //   <div className="">
+    //     <Routes>
+    //       <Route path="/adminLogin" element={<AdminLogin />} />
+    //       <Route path="/managerLogin" element={<ManagerLogin />} />
+    //       <Route path="/" element={<UserVaccine />} />
+    //       <Route
+    //         path="/AdminDash"
+    //         element={
+    //           <PrivateRoute user="admin">
+    //             <AdminDash />
+    //           </PrivateRoute>
+    //         }
+    //       />
+    //       <Route
+    //         path="/urbanCenter"
+    //         element={
+    //           <PrivateRoute user="manager">
+    //             <UrbanCenter />
+    //           </PrivateRoute>
+    //         }
+    //       />
+    //     </Routes>
+    //   </div>
+    // </BrowserRouter>
     <BrowserRouter>
-      {role =="admin" || role == "manager" ? <Navigation /> : null}
+      {role === "admin" || role === "manager" ? <Navigation /> : null}
         <div className={role === "admin" || role === "manager"  ? 'pl-[18em]  pr-[1.5em]' : ''} >
         <Routes>
           <Route path="/adminLogin" element={<AdminLogin />} />
           <Route path="/managerLogin" element={<ManagerLogin />} />
           <Route path="/" element={<UserVaccine />} />
-          {
-            role == "admin" ? (
+          {/* {
+            role === "admin" ? ( */}
               <>
                 <Route
                   path="/AdminDash"
@@ -55,7 +83,7 @@ const Routers = () => {
                   }
                 />
               </>
-            ): role == "manager" ? (
+            {/* ): role === "manager" ? ( */}
               <>
                 <Route
                   path="/VaccinationListe"
@@ -74,8 +102,8 @@ const Routers = () => {
                   }
                 />
               </>
-            ): null
-          }
+            {/* ): null
+          } */}
           
 
         </Routes>

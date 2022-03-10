@@ -1,15 +1,15 @@
 import { Link, Navigate } from 'react-router-dom';
 import { useNavigate } from "react-router-dom";
+import { useCookies } from 'react-cookie';
 
 const LinkStyle ='pl-4 py-2 mt-2 text-sm font-semibold text-gray-900 bg-gray-200 rounded-lg dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:bg-gray-600 dark:focus:text-white dark:hover:text-white dark:text-gray-200 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline';
 const Navigation = () => {
-
-    const role = localStorage.getItem("user");
+    const [cookies, setCookie, removeCookie] = useCookies();
     let navigate = useNavigate();
 
     function logout(){
-        localStorage.clear();
-        role== 'admin' ? navigate("/adminDash"): navigate("/managerLogin")
+        removeCookie();
+        cookies.role === 'admin' ? navigate("/adminDash"): navigate("/managerLogin")
     }
 
     return (
@@ -22,9 +22,9 @@ const Navigation = () => {
                         </div>
                         <div className="flex flex-col  bg-yellow-800  mt-4 w-full py-2 px-4 rounded-lg  mb-12">
 
-                            <div className="text-lg font-semibold text-white">{role}</div>
+                            <div className="text-lg font-semibold text-white">{cookies.role}</div>
                         </div>
-                        {role === 'admin' ? (
+                        {cookies.role  === 'admin' ? (
                             <>
                                 <Link to="/AdminDash" className={`${LinkStyle}`}>
                                     Dashboard
@@ -39,7 +39,7 @@ const Navigation = () => {
                                     Urban Centers
                                 </Link>
                             </>
-                        ) : role === 'manager'? (
+                        ) : cookies.role === 'manager'? (
                             <>
                                 <Link to="/ManagerDash" className={`${LinkStyle}`}>
                                     Dashboard

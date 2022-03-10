@@ -5,6 +5,7 @@ import {  useMutation } from "react-query";
 import axios from "axios";
 import * as Yup from "yup";
 import Error from "../../Shared/Error";
+import { useCookies } from 'react-cookie';
 
 const AdminSchema = Yup.object().shape({
   email: Yup.string().email("Invalid email address").required("Required"),
@@ -12,11 +13,15 @@ const AdminSchema = Yup.object().shape({
 });
 
 const AdminLoginForm = () => {
+  const [cookies, setCookie, removeCookie] = useCookies();
+
   const navigate = useNavigate();
   const [error, setError] = useState("");
 
   const loginMutation = useMutation(
-    (values) => axios.post("http://localhost:4000/api/admin/login", values),
+    (values) => axios
+      .post("http://localhost:4000/api/admin/login", values)
+      .then(res=>setCookie('role', res.data.role)),
     {
       onSuccess: () => {
         localStorage.setItem("user", "admin");
@@ -28,6 +33,8 @@ const AdminLoginForm = () => {
       },
     }
   );
+
+  console.log(cookies);
   return (
     <Formik
       initialValues={{
