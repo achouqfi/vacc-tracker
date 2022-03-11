@@ -1,8 +1,11 @@
 const manager = require("../models/manager.model");
+const appointment = require("../models/appointment.model");
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcryptjs')
 const { comparePassword } = require('../helpers/JwtValidation')
 const { RegionalManager } = require('../utils/mail')
+const {} = require('./appointment.controller')
+var dayjs = require('dayjs')
 
 const loginManager = async (req, res) => {
     const { email, password } = req.body
@@ -10,11 +13,16 @@ const loginManager = async (req, res) => {
         if (!email || !password)
             return res.status(404).json({ message: "Please fill all the fields" })
             const existingAdmin = await manager.findOne({ email })
-            if (!existingAdmin) return res.status(404).json({ message: "Manager not found" })
+            if (!existingAdmin) return res.status(404).json({ message: "Manager not found"})
+            const result = await appointment.find();
             comparePassword(password, existingAdmin, res)
-            console.log("manager");
-            res.cookie('role', "manager", { httpOnly: true })
-            res.cookie('region', existingAdmin.region , { httpOnly: true })
+            const date = dayjs(new Date()).add(0, 'month').format('DD/MM/YYYY')
+            result.forEach(element => {
+                if (element.vacc1 == date || element.vacc2 == date || element.vacc3 == date ) {
+                    console.log('anaa hna');
+                }
+            });
+            
     } catch (error) {
         res.status(404).json({ message: error.message })
     }

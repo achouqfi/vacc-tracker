@@ -24,7 +24,6 @@ const AdminLoginForm = () => {
       .then(res=>setCookie('role', res.data.role)),
     {
       onSuccess: () => {
-        localStorage.setItem("user", "admin");
         navigate("/adminDash");
       },
       onError: () => {

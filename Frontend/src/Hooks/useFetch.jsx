@@ -3,8 +3,6 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 export const sendData = async (url, data) => {
-  console.log("ana hnaa");
-
   const response = await fetch(`http://localhost:4000/api/${url}/store`, {
     method: "POST",
     headers: {

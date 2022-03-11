@@ -37,6 +37,15 @@ const appointmentSchema = new mongoose.Schema({
     vacc3: {
         type: String,
     },
+    vacc1Status: {
+        type: String,
+    },
+    vacc2Status: {
+        type: String,
+    },
+    vacc3Status: {
+        type: String,
+    },
 })
 
 module.exports = mongoose.model('appointment', appointmentSchema)

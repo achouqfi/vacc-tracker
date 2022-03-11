@@ -3,6 +3,7 @@ import Error from "../../Shared/Error";
 import { useNavigate } from "react-router-dom";
 import { useMutation } from "react-query";
 import { useState } from "react";
+import { useCookies } from 'react-cookie';
 import axios from "axios";
 import * as Yup from "yup";
 
@@ -14,12 +15,16 @@ const ManagerSchema = Yup.object().shape({
 const ManagerLoginForm = () => {
   let navigate = useNavigate();
   const [error, setError] = useState("");
+  const [cookies, setCookie, removeCookie] = useCookies();
 
   const loginMutation = useMutation(
-    (values) => axios.post("http://localhost:4000/api/managers/login", values),
+    (values) => axios.post("http://localhost:4000/api/managers/login", values)
+      .then(res=>{
+        setCookie('role', res.data.role)
+        setCookie('region', res.data.region)
+      }),
     {
       onSuccess: () => {
-        localStorage.setItem("user", "manager");
         navigate("/VaccinationListe");
       },
       onError: () => {
@@ -27,6 +32,8 @@ const ManagerLoginForm = () => {
       },
     }
   );
+
+  console.log(cookies);
   return (
     <Formik
       initialValues={{

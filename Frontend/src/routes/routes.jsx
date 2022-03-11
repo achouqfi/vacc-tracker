@@ -15,31 +15,6 @@ const Routers = () => {
   const role = cookies.role
   
   return (
-    // <BrowserRouter>
-    //   <div className="">
-    //     <Routes>
-    //       <Route path="/adminLogin" element={<AdminLogin />} />
-    //       <Route path="/managerLogin" element={<ManagerLogin />} />
-    //       <Route path="/" element={<UserVaccine />} />
-    //       <Route
-    //         path="/AdminDash"
-    //         element={
-    //           <PrivateRoute user="admin">
-    //             <AdminDash />
-    //           </PrivateRoute>
-    //         }
-    //       />
-    //       <Route
-    //         path="/urbanCenter"
-    //         element={
-    //           <PrivateRoute user="manager">
-    //             <UrbanCenter />
-    //           </PrivateRoute>
-    //         }
-    //       />
-    //     </Routes>
-    //   </div>
-    // </BrowserRouter>
     <BrowserRouter>
       {role === "admin" || role === "manager" ? <Navigation /> : null}
         <div className={role === "admin" || role === "manager"  ? 'pl-[18em]  pr-[1.5em]' : ''} >
@@ -47,8 +22,8 @@ const Routers = () => {
           <Route path="/adminLogin" element={<AdminLogin />} />
           <Route path="/managerLogin" element={<ManagerLogin />} />
           <Route path="/" element={<UserVaccine />} />
-          {/* {
-            role === "admin" ? ( */}
+          {
+            role === "admin" ? (
               <>
                 <Route
                   path="/AdminDash"
@@ -83,7 +58,7 @@ const Routers = () => {
                   }
                 />
               </>
-            {/* ): role === "manager" ? ( */}
+            ): role === "manager" ? (
               <>
                 <Route
                   path="/VaccinationListe"
@@ -102,8 +77,8 @@ const Routers = () => {
                   }
                 />
               </>
-            {/* ): null
-          } */}
+            ): null
+          }
           
 
         </Routes>

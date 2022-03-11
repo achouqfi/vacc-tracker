@@ -15,7 +15,9 @@ const comparePassword = async (password, user, res) => {
                     if (err) return res.json({ message: err.message })
                     return res.status(200).json({
                         token: token,
-                        email: user.email,
+                        // email: user.email,
+                        role:'manager',
+                        region:user.region
                     })
                 })
             } else {

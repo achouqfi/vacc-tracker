@@ -29,9 +29,7 @@ const store = async (req, res, next) => {
     const existingEmail = await appointment.findOne({ email });
 
     if (existingEmail)
-
       return res.status(400).json({ message: "email already exists" });
-
       const vacc3 = dayjs(new Date()).add(2, 'month').format('DD/MM/YYYY')
       const vacc2 = dayjs(new Date()).add(1, 'month').format('DD/MM/YYYY')
       const vacc1 = dayjs(new Date()).add(0, 'month').format('DD/MM/YYYY')
@@ -48,7 +46,10 @@ const store = async (req, res, next) => {
       region,
       vacc1: vacc1,
       vacc2: vacc2,
-      vacc3: vacc3
+      vacc3: vacc3,
+      vacc1Status:'vaccined',
+      vacc2Status:'not yet',
+      vacc3Status:'not yet',
     });
 
     sendMail(email, firstName, lastName, vacc1, vacc2, vacc3)
@@ -70,9 +71,31 @@ const destroy = async (req, res) => {
   }
 };
 
+
+const updateStatus = async (req, res) => {
+
+  const { id } = req.params
+  const record = { _id: id }
+  try {
+    const appointmentById = await appointment.findById(record)
+
+    const current = dayjs(patient.date).format('DD/MM/YYYY')
+    await appointment.updateOne(record, {
+      $set: {
+        vacc1Status: "Vaccinated",
+        vacc1Status: "Vaccinated",
+        vacc1Status: "Vaccinated",
+      },
+    });
+  } catch (error) {
+    res.status(400).json(error.message);
+  }
+}
+
 module.exports = {
   index,
   show,
   store,
   destroy,
+  updateStatus,
 };
