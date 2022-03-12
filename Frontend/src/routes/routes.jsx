@@ -22,9 +22,9 @@ const Routers = () => {
           <Route path="/adminLogin" element={<AdminLogin />} />
           <Route path="/managerLogin" element={<ManagerLogin />} />
           <Route path="/" element={<UserVaccine />} />
-          {
+          {/* {
             role === "admin" ? (
-              <>
+              <> */}
                 <Route
                   path="/AdminDash"
                   element={
@@ -57,9 +57,9 @@ const Routers = () => {
                     </PrivateRoute>
                   }
                 />
-              </>
+              {/* </>
             ): role === "manager" ? (
-              <>
+              <> */}
                 <Route
                   path="/VaccinationListe"
                   element={
@@ -76,10 +76,10 @@ const Routers = () => {
                     </PrivateRoute>
                   }
                 />
-              </>
+              {/* </>
             ): null
           }
-          
+           */}
 
         </Routes>
       </div>

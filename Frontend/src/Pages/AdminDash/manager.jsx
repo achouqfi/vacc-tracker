@@ -22,18 +22,13 @@ export default function Manager() {
       <div className="w-full">
       <ManagerTable />
       </div>
-
-      {/* <Stats 
-        title={"center per region"}
-
-      /> */}
-     </div>
-     <Modal
-        isOpen={open}
-        title="add Manager"
-        setIsOpen={setIsOpen}
-        component={<AddManagerForm isOpen={open} setIsOpen={setIsOpen} />}
-      />
+    </div>
+    <Modal
+      isOpen={open}
+      title="add Manager"
+      setIsOpen={setIsOpen}
+      component={<AddManagerForm isOpen={open} setIsOpen={setIsOpen} />}
+    />
   </div>
   )
 }

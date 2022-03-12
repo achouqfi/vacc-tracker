@@ -3,6 +3,7 @@ import { useQuery } from "react-query";
 import ConfirmDelete from "../ConfirmDelete";
 import Modal from "../Modals";
 import axios from "axios";
+import UpdateStatusForm from '../Forms/UpdateStatus'
 
 const VaccinationTable = () => {
   const [open, setIsOpen] = useState(false);
@@ -68,8 +69,8 @@ const VaccinationTable = () => {
                 >
                   phone
                 </th>
-                <th scope="col" className="relative py-3 px-6">
-                  <span className="sr-only">Edit</span>
+                <th scope="col" className="">
+                  <span className="text-white  text-xs uppercase dark:text-gray-400">Edit</span>
                 </th>
               </tr>
             </thead>
@@ -95,37 +96,48 @@ const VaccinationTable = () => {
                     {
                       appointement.vacc1Status === 'vaccined' ?(
                         <td className="">
-                          <p className=" px-2 mx-2 bg-green-400  text-white sm:rounded-lg dark:text-light">{appointement.vacc1}</p>
+                          <p className=" px-2 mx-2 bg-green-400  text-white text-center sm:rounded-lg dark:text-light">{appointement.vacc1}</p>
                         </td>
                       ): appointement.vacc1Status === 'not yet' ?(
                         <td className="">
-                          <p className=" px-2 mx-2 bg-yellow-400  text-white sm:rounded-lg dark:text-light">{appointement.vacc1}</p>
+                          <p className=" px-2 mx-2 bg-yellow-400  text-white text-center  sm:rounded-lg dark:text-light">{appointement.vacc1}</p>
+                        </td>
+                      ): appointement.vacc1Status === 'not vaccined' ?(
+                        <td className="">
+                          <p className=" px-2 mx-2 bg-red-400  text-white text-center  sm:rounded-lg dark:text-light">{appointement.vacc1}</p>
                         </td>
                       ):null
                     }
                     {
                       appointement.vacc2Status === 'vaccined' ?(
                         <td className="">
-                          <p className=" px-2 mx-2 bg-green-400  text-white sm:rounded-lg dark:text-light">{appointement.vacc2}</p>
+                          <p className=" px-2 mx-2 bg-green-400  text-white text-center  sm:rounded-lg dark:text-light">{appointement.vacc2}</p>
                         </td>
                       ): appointement.vacc2Status === 'not yet' ?(
                         <td className="">
-                          <p className=" px-2 mx-2 bg-yellow-400  text-white sm:rounded-lg dark:text-light">{appointement.vacc2}</p>
+                          <p className=" px-2 mx-2 bg-yellow-400  text-white text-center  sm:rounded-lg dark:text-light">{appointement.vacc2}</p>
+                        </td>
+                      ): appointement.vacc2Status === 'not vaccinated' ?(
+                        <td className="">
+                          <p className=" px-2 mx-2 bg-red-400  text-white text-center  sm:rounded-lg dark:text-light">{appointement.vacc2}</p>
                         </td>
                       ):null
                     }
                     {
                       appointement.vacc3Status === 'vaccined' ?(
                         <td className="">
-                          <p className=" px-2 mx-2 bg-green-400  text-white sm:rounded-lg dark:text-light">{appointement.vacc3}</p>
+                          <p className=" px-2 mx-2 bg-green-400  text-white text-center  sm:rounded-lg dark:text-light">{appointement.vacc3}</p>
+                        </td>
+                      ): appointement.vacc3Status === 'not vaccinated' ?(
+                        <td className="">
+                          <p className=" px-2 mx-2 bg-red-400  text-white text-center  sm:rounded-lg dark:text-light">{appointement.vacc3}</p>
                         </td>
                       ): appointement.vacc3Status === 'not yet' ?(
                         <td className="">
-                          <p className=" px-2 mx-2 bg-yellow-400  text-white sm:rounded-lg dark:text-light">{appointement.vacc3}</p>
+                          <p className=" px-2 mx-2 bg-yellow-400  text-white text-center  sm:rounded-lg dark:text-light">{appointement.vacc3}</p>
                         </td>
                       ):null
                     }
-
                     <td className="py-4 px-6 text-sm text-gray-500 whitespace-nowrap dark:text-gray-400">
                       {appointement.phone}
                     </td>
@@ -135,8 +147,9 @@ const VaccinationTable = () => {
                           type="button"
                           onClick={() => {
                             setIsOpen(!open);
-                            UpdateQuery(appointement._id);
+                            setVaccinationId(appointement._id)
                           }}
+                          
                           className=" text-red-700 hover:text-white border border-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:border-blue-400 dark:text-blue-400 blue:hover:text-white dark:hover:bg-blue-400 dark:focus:ring-blue-400"
                         >
                           Update status
@@ -147,19 +160,19 @@ const VaccinationTable = () => {
                 ))}
             </tbody>
           </table>
+          <Modal
+            isOpen={open}
+            title="Update Status"
+            setIsOpen={setIsOpen}
+            component={
+              <UpdateStatusForm 
+                isOpen={open} 
+                appointement= {vaccinationId}
+                setIsOpen={setIsOpen} 
+              />
+            }
+          />
         </div>
-        <Modal
-          isOpen={open}
-          setIsOpen={setIsOpen}
-          component={
-            <ConfirmDelete
-              isOpen={open}
-              setIsOpen={setIsOpen}
-              rowId={vaccinationId}
-              role={"appointments"}
-            />
-          }
-        />
       </div>
     </div>
   );
