@@ -2,7 +2,6 @@ import { useState } from "react"
 import AddUrbanCenterForm from "../../components/Forms/AddUrbanCenter"
 import Modal from "../../components/Modals"
 import UrbanCenterTable from "../../components/UrbanCenterTable"
-import Stats from '../../components/Statistiques/Stat'
 import { useQuery } from "react-query";
 import axios from "axios";
 

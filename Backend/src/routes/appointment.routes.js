@@ -6,12 +6,14 @@ const {
     store,
     show,
     destroy,
-    updateStatus
+    updateStatus,
+    index
 } = require('../controllers/appointment.controller')
 
-router.get('/',show)
+router.get('/:region',show)
+router.get('/',index)
 router.post('/store', store)
 router.delete('/:id', destroy)
-router.delete('/status/:id', destroy)
+router.put('/status/:id', updateStatus)
 
 module.exports = router;

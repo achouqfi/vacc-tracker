@@ -100,7 +100,7 @@ const AddManagerForm = ({ setIsOpen, isOpen }) => {
             <Field className="bg-gray-700 border border-gray-300 text-gray-50 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" as="select" name="region">
               {data &&
                 data.map((el, index) => (
-                  <option key={index} value={el.region}>
+                  <option key={index} value={el.id}>
                     {el.region}
                   </option>
                 ))}

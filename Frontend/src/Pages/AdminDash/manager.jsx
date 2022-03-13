@@ -2,7 +2,6 @@ import ManagerTable from "../../components/ManagerTable";
 import Modal from "../../components/Modals";
 import { useState } from "react";
 import AddManagerForm from "../../components/Forms/AddManagerForm";
-import Stats from '../../components/Statistiques/Stat'
 export default function Manager() {
     const [open, setIsOpen] = useState(false);
 

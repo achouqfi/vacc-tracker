@@ -38,10 +38,6 @@ const UserForm = () => {
   const { data, loading } = useFetch(
     "https://calm-fjord-14795.herokuapp.com/api/regions"
   );
-  const { data: center, loading: isLoading } = useFetch(
-    "http://localhost:4000/api/urbanCenter"
-  );
-
   
   return (
    <>
@@ -146,7 +142,8 @@ const UserForm = () => {
                         <option key={index} value={el.id}>
                           {el.id} - {el.region}
                         </option>
-                      ))}
+                      ))
+                    }
                   </Field>
                   </div>
                   {

@@ -25,7 +25,7 @@ const ManagerLoginForm = () => {
       }),
     {
       onSuccess: () => {
-        navigate("/VaccinationListe");
+        // navigate("/VaccinationListe");
       },
       onError: () => {
         setError("wrong creds");

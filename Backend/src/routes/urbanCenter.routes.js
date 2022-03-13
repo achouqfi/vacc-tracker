@@ -7,7 +7,7 @@ const {
     deleteUrbanCenter
 } = require('../controllers/urbanCenter.controller')
 
-router.get('/',index)
+router.get('/:region',index)
 router.post('/store', store)
 router.delete('/:id', deleteUrbanCenter)
 

@@ -4,8 +4,8 @@ const jwt = require('jsonwebtoken')
 const bcrypt = require('bcryptjs')
 const { comparePassword } = require('../helpers/JwtValidation')
 const { RegionalManager } = require('../utils/mail')
-const {} = require('./appointment.controller')
 var dayjs = require('dayjs')
+const {updateStatusByDate} = require('./appointment.controller')
 
 const loginManager = async (req, res) => {
     const { email, password } = req.body
@@ -17,12 +17,24 @@ const loginManager = async (req, res) => {
             const result = await appointment.find();
             comparePassword(password, existingAdmin, res)
             const date = dayjs(new Date()).add(0, 'month').format('DD/MM/YYYY')
+            let vacc1
+            let vacc2
+            let vacc3
             result.forEach(element => {
-                if (element.vacc1 == date || element.vacc2 == date || element.vacc3 == date ) {
-                    console.log('anaa hna');
+                if (element.vacc1 == date && element.vacc1Status != 'vaccined' ) {
+                    const record = { _id: element.id }
+                    vacc1="not vaccined"
+                    updateStatusByDate(record, vacc1, vacc2, vacc3)
+                }else if (element.vacc2 == date  && element.vacc2Status != 'vaccined') {
+                    const record = { _id: element.id }
+                    vacc2="not vaccined"
+                    updateStatusByDate(record, vacc1, vacc2, vacc3)
+                }else if (element.vacc3 == date  && element.vacc3Status != 'vaccined') {
+                    const record = { _id: element.id }
+                    vacc3="not vaccined"
+                    updateStatusByDate(record, vacc1, vacc2, vacc3)                
                 }
             });
-            
     } catch (error) {
         res.status(404).json({ message: error.message })
     }

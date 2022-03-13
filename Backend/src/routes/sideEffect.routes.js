@@ -4,9 +4,9 @@ const router = express.Router();
 // const morgan = require('morgan')
 const {
     store,
-    index,
+    show,
 } = require('../controllers/sideEffect.controller')
-router.get('/', index)
+router.get('/', show)
 router.post('/store', store)
 
 module.exports = router;

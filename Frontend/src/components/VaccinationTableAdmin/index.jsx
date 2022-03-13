@@ -1,19 +1,9 @@
-import { useState } from "react";
 import { useQuery } from "react-query";
-import ConfirmDelete from "../ConfirmDelete";
-import Modal from "../Modals";
 import axios from "axios";
-import UpdateStatusForm from '../Forms/UpdateStatus'
-import { useCookies } from 'react-cookie';
 
 const VaccinationTable = () => {
-  const [cookies, setCookie, removeCookie] = useCookies();
-  const [open, setIsOpen] = useState(false);
-  const [vaccinationId, setVaccinationId] = useState("");
-  console.log(cookies.region);
-
-  const query = useQuery("appointments", async () => {
-    const { data } = await axios.get(`http://localhost:4000/api/appointments/${cookies.region}`);
+  const query = useQuery("appointmentsAdmin", async () => {
+    const { data } = await axios.get(`http://localhost:4000/api/appointments/`);
     return data;
   });
 
@@ -72,9 +62,7 @@ const VaccinationTable = () => {
                 >
                   phone
                 </th>
-                <th scope="col" className="">
-                  <span className="text-white  text-xs uppercase dark:text-gray-400">Edit</span>
-                </th>
+
               </tr>
             </thead>
             <tbody>
@@ -144,37 +132,10 @@ const VaccinationTable = () => {
                     <td className="py-4 px-6 text-sm text-gray-500 whitespace-nowrap dark:text-gray-400">
                       {appointement.phone}
                     </td>
-                    <td className="py-4 px-6 text-sm font-medium text-right whitespace-nowrap">
-                      <div className="space-x-3">
-                        <button
-                          type="button"
-                          onClick={() => {
-                            setIsOpen(!open);
-                            setVaccinationId(appointement._id)
-                          }}
-                          
-                          className=" text-red-700 hover:text-white border border-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:border-blue-400 dark:text-blue-400 blue:hover:text-white dark:hover:bg-blue-400 dark:focus:ring-blue-400"
-                        >
-                          Status
-                        </button>
-                      </div>
-                    </td>
                   </tr>
                 ))}
             </tbody>
           </table>
-          <Modal
-            isOpen={open}
-            title="Update Status"
-            setIsOpen={setIsOpen}
-            component={
-              <UpdateStatusForm 
-                isOpen={open} 
-                appointement= {vaccinationId}
-                setIsOpen={setIsOpen} 
-              />
-            }
-          />
         </div>
       </div>
     </div>

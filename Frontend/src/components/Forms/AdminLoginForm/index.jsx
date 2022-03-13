@@ -24,7 +24,7 @@ const AdminLoginForm = () => {
       .then(res=>setCookie('role', res.data.role)),
     {
       onSuccess: () => {
-        navigate("/adminDash");
+        navigate("/Manager");
       },
       onError: () => {
         setError("wrong creds");

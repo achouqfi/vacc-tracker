@@ -9,6 +9,8 @@ import {
   QueryClientProvider,
 } from "react-query";
 import axios from "axios";
+import { useCookies } from 'react-cookie';
+
 
 const Urban = Yup.object().shape({
   urbanCenter: Yup.string().min(2, "Too Short!").required("Required"),
@@ -17,10 +19,10 @@ const Urban = Yup.object().shape({
 });
 
 const UrbanCenter = () => {
-  // Grab values and submitForm from context
+  const [cookies, setCookie, removeCookie] = useCookies();
   const { values } = useFormikContext();
   const { data } = useFetch(
-    `https://calm-fjord-14795.herokuapp.com/api/villes/${values.region}`
+    `https://calm-fjord-14795.herokuapp.com/api/villes/${cookies.region}`
   );
   
   return (
@@ -41,14 +43,11 @@ const UrbanCenter = () => {
 };
 
 const AddUrbanCenterForm = ({ setIsOpen, isOpen }) => {
-  const { data, loading } = useFetch(
-    "https://calm-fjord-14795.herokuapp.com/api/regions"
-  );
+  const [cookies, setCookie, removeCookie] = useCookies();
   const queryClient = useQueryClient();
-
   const addMutation = useMutation(
     (values) =>
-      axios.post("http://localhost:4000/api/urbanCenter/store", values),
+      axios.post(`http://localhost:4000/api/urbanCenter/store/`, values),
     {
       onSuccess: () => queryClient.invalidateQueries("urbanCenter"),
     }
@@ -58,7 +57,7 @@ const AddUrbanCenterForm = ({ setIsOpen, isOpen }) => {
     <Formik
       initialValues={{
         urbanCenter: "",
-        region: "",
+        region: cookies.region,
         location: "",
       }}
       validationSchema={Urban}
@@ -88,41 +87,6 @@ const AddUrbanCenterForm = ({ setIsOpen, isOpen }) => {
             {errors.urbanCenter && touched.urbanCenter ? (
               <div className="text-red-500 font-semibold dark:text-red-400">
                 {errors.urbanCenter}
-              </div>
-            ) : null}
-          </div>
-
-          <div className="mt-4">
-            <label
-              htmlFor="region"
-              className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-            >
-              Region
-            </label>
-            {loading && (
-              <div className="text-blue-400 font-normal py-3">
-                Fetching regions...
-              </div>
-            )}
-            <Field
-              className="bg-gray-700 border border-gray-300 text-gray-50 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-              as="select"
-              name="region"
-            >
-              <option value="" disabled>
-                Select region
-              </option>
-              {data &&
-                data.map((el, index) => (
-                  <option key={index} value={el.id}>
-                    {el.id} - {el.region}
-                  </option>
-                ))
-              }
-            </Field>
-            {errors.email && touched.email ? (
-              <div className="text-red-500 font-semibold dark:text-red-400">
-                {errors.email}
               </div>
             ) : null}
           </div>

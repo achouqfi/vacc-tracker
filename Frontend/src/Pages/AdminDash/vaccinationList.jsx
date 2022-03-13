@@ -1,5 +1,6 @@
-import VaccitionTable from "../../components/VaccinationTable";
-export default function vaccination() {
+import VaccinationTableAdmin from "../../components/VaccinationTableAdmin";
+import Stat from '../../components/AdminStatistiques'
+export default function vaccinationList() {
 
   return (
     <div className="w-[100%]">
@@ -8,9 +9,12 @@ export default function vaccination() {
       </div>
       <div className="flex">
         <div className="w-full">
-        <VaccitionTable />
+        <VaccinationTableAdmin />
         </div>
       </div> 
+      <div>
+          <Stat />
+        </div>
     </div>
   )
 }

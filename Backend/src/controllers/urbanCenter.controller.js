@@ -1,7 +1,10 @@
 const UrbanCenter = require('../models/urbanCenter.model')
 const index = async (req, res) => {
+    const { region } = req.params
+
     try {
-        const urbanCenters = await UrbanCenter.find()
+        const urbanCenters = await UrbanCenter.find({region})
+        
         res.status(200).json(urbanCenters)
     } catch (error) {
         res.status(404).json({ message: error.message })
@@ -19,6 +22,8 @@ const store = async (req, res) => {
             location,
             region
         })
+
+        console.log(newUrbanCenter);
 
         res.status(200).json({ newUrbanCenter })
 

@@ -9,7 +9,7 @@ const Navigation = () => {
 
     function logout(){
         removeCookie();
-        cookies.role === 'admin' ? navigate("/adminDash"): navigate("/managerLogin")
+        cookies.role === 'admin' ? navigate("/adminLogin"): navigate("/managerLogin")
     }
 
     return (
@@ -26,13 +26,13 @@ const Navigation = () => {
                         </div>
                         {cookies.role  === 'admin' ? (
                             <>
-                                <Link to="/AdminDash" className={`${LinkStyle}`}>
+                                {/* <Link to="/AdminDash" className={`${LinkStyle}`}>
                                     Dashboard
-                                </Link>
+                                </Link> */}
                                 <Link to="/Manager" className={`${LinkStyle}`}>
                                     Managers
                                 </Link>
-                                <Link to="/Vaccination" className={`${LinkStyle}`}>
+                                <Link to="/vaccinationList" className={`${LinkStyle}`}>
                                     Vaccinations
                                 </Link>
                                 <Link to="/urbanCenter" className={`${LinkStyle}`}>
@@ -41,21 +41,21 @@ const Navigation = () => {
                             </>
                         ) : cookies.role === 'manager'? (
                             <>
-                                <Link to="/ManagerDash" className={`${LinkStyle}`}>
+                                {/* <Link to="/ManagerDash" className={`${LinkStyle}`}>
                                     Dashboard
-                                </Link>
-                                {/* <Link to="/DeliveryMangers" className={`${LinkStyle}`}>
-                                    Side Effect
                                 </Link> */}
+                                <Link to="/sideEffect" className={`${LinkStyle}`}>
+                                    Side Effect
+                                </Link>
                                 <Link to="/VaccinationListe" className={`${LinkStyle}`}>
                                     Vaccinations
                                 </Link>
                                 <Link to="/urbanCenterListe" className={`${LinkStyle}`}>
                                     Urban Centers
                                 </Link>
-                                <Link to="/urbanCenter" className={`${LinkStyle}`}>
+                                {/* <Link to="/urbanCenter" className={`${LinkStyle}`}>
                                     No Vaccined Form
-                                </Link>
+                                </Link> */}
                             </>
                         ) : null}
                         

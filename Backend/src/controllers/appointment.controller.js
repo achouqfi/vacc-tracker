@@ -4,21 +4,21 @@ const {sendMail} = require("../utils/mail")
 var dayjs = require('dayjs')
 
 const index = async (req, res) => {
-  sss.find()
-    .then((result) => {
-      res.status(200).json(result);
-    })
-    .catch((err) => {
-      res.status(400).json({ error: err.message });
-    });
+  try {
+    const result = await appointment.find();
+    res.status(200).json(result);
+  } catch (err) { 
+    res.status(400).json({ error: err.message });
+  }
 };
 
 
 const show = async (req, res) => {
+  const { region } = req.params;
   try {
-    const result = await appointment.find();
+    const result = await appointment.find({region});
     res.status(200).json(result);
-  } catch (err) {
+  } catch (err) { 
     res.status(400).json({ error: err.message });
   }
 };
@@ -71,25 +71,54 @@ const destroy = async (req, res) => {
   }
 };
 
-
-const updateStatus = async (req, res) => {
-
-  const { id } = req.params
-  const record = { _id: id }
-  try {
-    const appointmentById = await appointment.findById(record)
-
-    const current = dayjs(patient.date).format('DD/MM/YYYY')
-    await appointment.updateOne(record, {
+const updateStatusByDate = async (id, vacc1, vacc2, vacc3) =>{
+  if (vacc1) {
+    await appointment.updateOne(id, {
       $set: {
-        vacc1Status: "Vaccinated",
-        vacc1Status: "Vaccinated",
-        vacc1Status: "Vaccinated",
+          vacc1Status: "not vaccinated",
+      },
+    });  
+  }else if (vacc2) {
+    await appointment.updateOne(id, {
+        $set: {
+            vacc2Status: "not vaccinated",
+        },
+    });
+  }else if (vacc3) {
+    await appointment.updateOne(id, {
+      $set: {
+          vacc3Status: "not vaccinated",
       },
     });
-  } catch (error) {
-    res.status(400).json(error.message);
-  }
+  }  
+}
+
+const updateStatus = async (req, res) => {
+  const { vaccNumber, status, id } = req.body
+  const record = { _id: id };
+  
+  if (vaccNumber == '1') {
+    const updateStatus = await appointment.updateOne(record, {
+      $set: {
+          vacc1Status:status,
+      },
+    });  
+    console.log(updateStatus);
+  }else if (vaccNumber == '2') {
+    const updateStatus = await appointment.updateOne(record, {
+        $set: {
+            vacc2Status: status,
+        },
+    });
+    res.status(200).json(updateStatus);
+  }else if (vaccNumber == '3') {
+    const updateStatus = await appointment.updateOne(record, {
+      $set: {
+          vacc3Status: status,
+      },
+    });
+    console.log(updateStatus);
+  }  
 }
 
 module.exports = {
@@ -98,4 +127,5 @@ module.exports = {
   store,
   destroy,
   updateStatus,
+  updateStatusByDate
 };

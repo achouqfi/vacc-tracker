@@ -7,6 +7,8 @@ import ManagerLogin from "../Pages/ManagerLogin";
 import Manager from '../Pages/AdminDash/manager'
 import UrbanCenter from "../Pages/UrbanCenter/UrbanCenter";
 import Vaccination from '../Pages/AdminDash/vaccination'
+import VaccinationList from '../Pages/AdminDash/vaccinationList'
+import SideEffect from '../Pages/SideEffect'
 import Navigation from './Navigation'
 import { useCookies } from 'react-cookie';
 
@@ -42,10 +44,10 @@ const Routers = () => {
                   }
                 />
                 <Route
-                  path="/Vaccination"
+                  path="/vaccinationList"
                   element={
                     <PrivateRoute user="admin">
-                      <Vaccination />
+                      <VaccinationList />
                     </PrivateRoute>
                   }
                 />
@@ -73,6 +75,14 @@ const Routers = () => {
                   element={
                     <PrivateRoute user="manager">
                       <UrbanCenter />
+                    </PrivateRoute>
+                  }
+                />
+                <Route
+                  path="/sideEffect"
+                  element={
+                    <PrivateRoute user="manager">
+                      <SideEffect />
                     </PrivateRoute>
                   }
                 />

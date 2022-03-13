@@ -5,16 +5,17 @@ import axios from "axios";
 import { useQuery } from "react-query";
 import { useCookies } from 'react-cookie';
 
-const UrbanCenterTable = () => {
+export default function index() {
   const [open, setIsOpen] = useState(false);
   const [center, setCenterId] = useState();
   const [cookies, setCookie, removeCookie] = useCookies();
   
   // Queries
-  const query = useQuery("urbanCenter", async () => {
-    const { data } = await axios.get( `http://localhost:4000/api/urbanCenter/${cookies.region}`);
+  const query = useQuery("sideEffect", async () => {
+    const { data } = await axios.get( `http://localhost:4000/api/sideEffect/`);
     return data;
   });
+  console.log(query.data);
 
   return (
     <div>
@@ -27,7 +28,13 @@ const UrbanCenterTable = () => {
                   scope="col"
                   className="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase dark:text-gray-400"
                 >
-                  Center Name
+                  Emasssil
+                </th>
+                <th
+                  scope="col"
+                  className="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase dark:text-gray-400"
+                >
+                  Email
                 </th>
                 <th
                   scope="col"
@@ -41,9 +48,7 @@ const UrbanCenterTable = () => {
                 >
                   region
                 </th>
-                <th scope="col" className="relative py-3 px-6">
-                  <span className="sr-only">delete</span>
-                </th>
+                
               </tr>
             </thead>
             <tbody>
@@ -54,47 +59,24 @@ const UrbanCenterTable = () => {
                     className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
                   >
                     <td className="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                      {center.urbanCenter}
+                      {center.email}
                     </td>
                     <td className="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                      {center.location}
+                      {center.SideEffectDesc}
                     </td>
                     <td className="py-4 px-6 text-sm text-gray-500 whitespace-nowrap dark:text-gray-400">
-                      {center.region}
+                      {center.phone}
                     </td>
-                    <td className="py-4 px-6 text-sm font-medium text-right whitespace-nowrap">
-                      <div className="space-x-3">
-                        <button
-                          type="button"
-                          onClick={() => {
-                            setIsOpen(!open);
-                            setCenterId(center._id);
-                          }}
-                          className=" text-red-700 hover:text-white border border-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-800"
-                        >
-                          delete
-                        </button>
-                      </div>
+                    <td className="py-4 px-6 text-sm text-gray-500 whitespace-nowrap dark:text-gray-400">
+                      {center.Cin}
                     </td>
                   </tr>
                 ))}
             </tbody>
           </table>
         </div>
-        <Modal
-          isOpen={open}
-          title="Delete Center"
-          setIsOpen={setIsOpen}
-          component={
-            <ConfirmDeleteCenter
-              centerId={center}
-              isOpen={open}
-              setIsOpen={setIsOpen}
-            />
-          }
-        />
+        
       </div>
     </div>
   );
-};
-export default UrbanCenterTable;
+}
