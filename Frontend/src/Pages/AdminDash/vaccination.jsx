@@ -1,4 +1,5 @@
 import VaccitionTable from "../../components/VaccinationTable";
+import StatManager from '../../components/Statistiques/manager'
 export default function vaccination() {
 
   return (
@@ -10,7 +11,11 @@ export default function vaccination() {
         <div className="w-full">
         <VaccitionTable />
         </div>
-      </div> 
+      </div>
+      <StatManager
+          title={"vaccin Status"}
+          collection={"appointments"}
+      /> 
     </div>
   )
 }

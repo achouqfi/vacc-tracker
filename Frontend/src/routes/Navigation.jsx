@@ -8,8 +8,8 @@ const Navigation = () => {
     let navigate = useNavigate();
 
     function logout(){
-        removeCookie();
         cookies.role === 'admin' ? navigate("/adminLogin"): navigate("/managerLogin")
+        removeCookie('role');
     }
 
     return (
@@ -26,24 +26,15 @@ const Navigation = () => {
                         </div>
                         {cookies.role  === 'admin' ? (
                             <>
-                                {/* <Link to="/AdminDash" className={`${LinkStyle}`}>
-                                    Dashboard
-                                </Link> */}
                                 <Link to="/Manager" className={`${LinkStyle}`}>
                                     Managers
                                 </Link>
                                 <Link to="/vaccinationList" className={`${LinkStyle}`}>
                                     Vaccinations
                                 </Link>
-                                <Link to="/urbanCenter" className={`${LinkStyle}`}>
-                                    Urban Centers
-                                </Link>
                             </>
                         ) : cookies.role === 'manager'? (
                             <>
-                                {/* <Link to="/ManagerDash" className={`${LinkStyle}`}>
-                                    Dashboard
-                                </Link> */}
                                 <Link to="/sideEffect" className={`${LinkStyle}`}>
                                     Side Effect
                                 </Link>
@@ -53,9 +44,7 @@ const Navigation = () => {
                                 <Link to="/urbanCenterListe" className={`${LinkStyle}`}>
                                     Urban Centers
                                 </Link>
-                                {/* <Link to="/urbanCenter" className={`${LinkStyle}`}>
-                                    No Vaccined Form
-                                </Link> */}
+
                             </>
                         ) : null}
                         
