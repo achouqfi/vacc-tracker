@@ -8,7 +8,7 @@ const MailConfirm = ({ isOpen, setIsOpen , component }) => {
         as="div"
         className="fixed inset-0 z-10 overflow-y-auto bg-gray-700 bg-opacity-50"
         onClose={() => setIsOpen(false)}
-      >
+      >ù
         <div className="min-h-screen px-4 text-center ">
           <Transition.Child
             as={Fragment}

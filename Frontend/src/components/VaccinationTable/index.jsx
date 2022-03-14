@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useQuery } from "react-query";
-import ConfirmDelete from "../ConfirmDelete";
 import Modal from "../Modals";
 import axios from "axios";
 import UpdateStatusForm from '../Forms/UpdateStatus'

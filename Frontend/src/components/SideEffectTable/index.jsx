@@ -1,14 +1,7 @@
-import { useState } from "react";
-import Modal from "../../components/Modals";
-import ConfirmDeleteCenter from "../ConfirmDeleteCenters";
 import axios from "axios";
 import { useQuery } from "react-query";
-import { useCookies } from 'react-cookie';
 
 export default function index() {
-  const [open, setIsOpen] = useState(false);
-  const [center, setCenterId] = useState();
-  const [cookies, setCookie, removeCookie] = useCookies();
   
   // Queries
   const query = useQuery("sideEffect", async () => {

@@ -1,5 +1,4 @@
 import { Form, Formik, Field } from "formik";
-import CheckInput from "../../CheckInput";
 import { useContext } from "react";
 import { UserContext } from "../../Contexts/UserContext";
 import { sendData } from "../../../Hooks/useFetch";
@@ -7,10 +6,7 @@ import { sendData } from "../../../Hooks/useFetch";
 const CheckForm = () => {
  
   const { setStep , step , setCheckResult } = useContext(UserContext)
-
-
   return (
-    
       <Formik
         initialValues={{
           age: 0,
@@ -116,7 +112,31 @@ const CheckForm = () => {
                     />
                   </div>
                 }
-                  {values.age > 12 && <CheckInput values={values} />}
+                  {values.age > 12 ?( 
+                  <div className="col-span-6 sm:col-span-3">
+                    <label
+                      htmlFor="country"
+                      className="block text-sm font-medium text-gray-700"
+                    >
+                      you have any chronic disease ?
+                    </label>
+                      <Field
+                        name="chronicDisease"
+                        as="select"
+                        id="chronicDisease"
+                        className="mt-1 pl-3  focus:ring-green-500 py-3 focus:border-green-500 block w-full shadow-sm sm:text-sm rounded-md border border-green-300 outline-none  "
+                      >
+                        <option value="">Select</option>
+                        <option value="no">No</option>
+                        <option value="yes">Yes</option>
+                      </Field>
+                    </div>
+                  ): null}  
+        
+                  {/* treatment */}
+                  {values.chronicDisease === "yes" && values.VaccNumber === "firstVacc" && (
+                    <h1> find you treatment here sante.com</h1>
+                  )}
                 </div>
               </div>
               {values.VaccNumber === "firstVacc" ?(
